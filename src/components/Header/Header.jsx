@@ -1,19 +1,35 @@
 import { useContext } from "react";
+import { useState } from "react";
 import logo_around from "../../images/logo_around.png";
-import { /* link, */ useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { removeToken } from "../../utils/token";
+import hamburguer from "../../images/hamburguerMenu.png";
+import closeHamburguer from "../../images/closeHamburguer.png";
 
-/* const signOut = () => {
+const signOut = () => {
   removeToken();
   setIsLoggedIn(false);
-};*/
+};
 
-/* if (isLoggedIn) {
-  signOut();
-}
- */
-function Header() {
+/* function ShowHideContent() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return (
+    <div>
+      <button onClick={(hamburguer) => setIsVisible(!isVisible)}>
+        {isVisible ? "Hide content" : "Show content"}
+      </button>
+      {isVisible && (
+        <div>
+          <p>This is the content to show/hide.</p>
+        </div>
+      )}
+    </div>
+  );
+} */
+
+function Header({ isLoggedIn }) {
   const location = useLocation();
 
   const from = location.state?.from || "/";
@@ -28,26 +44,38 @@ function Header() {
   }
 
   const { currentUser } = useContext(CurrentUserContext);
-
-  console.log(currentUser);
+  const [isMenuOpen, setIsMenuOpen] = useState(window.innerWidth > 720);
+  const menuHamburguerClosed = hamburguer;
+  const menuHamburguerOpen = closeHamburguer;
+  console.log(isMenuOpen);
 
   return (
     <>
       <header className="header">
-        <img className="header__logo" src={logo_around} alt="Logo Around" />
+        <div className="header__button-menu">
+          <img className="header__logo" src={logo_around} alt="Logo Around" />
+          <img
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="header__button-hamburguer-menu"
+            src={isMenuOpen ? menuHamburguerOpen : menuHamburguerClosed}
+            alt="menu hamburguer"
+          />
+        </div>
 
         {currentPage === "signup" && (
-          <div className="header__button-subscribe">Faça o login</div>
+          <Link className="header__button-exit" to="/signin">
+            <div className="header__button-login">Entrar</div>
+          </Link>
         )}
-        {currentPage === "signin" && (
-          <div className="header__button-login">Entrar</div>
+
+        {currentPage === "/" && isMenuOpen && (
+          <div className="header__button-user-Logged">{currentUser.email}</div>
         )}
-        {currentPage === "/" && (
-          <div className="header__button-exit">{currentUser.email} Sair</div>
+        {currentPage === "/" && isMenuOpen && (
+          <Link className="header__button-exit" to="/signin" onClick={signOut}>
+            Sair
+          </Link>
         )}
-        {currentPage === "/" && <div className="header__button-exit">Sair</div>}
-        {/*  */}
-        {/* <div className="header__button-Logged">{currentUser.name}</div> */}
       </header>
     </>
   );

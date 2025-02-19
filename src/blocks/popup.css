@@ -273,17 +273,37 @@
 
 .popup__form-infoTooltip-register {
   width: 430px;
-  height: 330px;
-  background-color: aqua;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
-.popup__image-infoTooltip-register {
+.popup__image-infoTooltip-sucess {
   width: 120px;
   height: 120px;
+  margin: 50px auto 32px;
 }
 
-.popup__message-infoTooltip {
+.popup__message-infoTooltip-p1 {
   width: 358px;
+  margin: 0 auto 20px;
+  font-family: "Inter" Arial, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  text-align: center;
+}
+.popup__message-infoTooltip-p2 {
+  width: 358px;
+  margin: 0 auto 60px;
+  font-family: "Inter" Arial, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  text-align: center;
 }
 
 /*---------------Fim popup infoTooltip---------------------*/

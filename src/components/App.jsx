@@ -1,4 +1,4 @@
-import { Children, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./Header/Header";
 import Login from "../components/Main/components/Login/Login";
 import Register from "../components/Main/components/Register/Register";
@@ -12,55 +12,45 @@ import ProtectedRoute from "../components/Main/components/ProtectedRoute/Protect
 import { getToken, setToken } from "../utils/token";
 import InfoTooltip from "../components/Main/components/InfoTooltip/InfoTooltip";
 import Popup from "../components/Main/components/Popup/Popup";
+import signupSucess from "../images/signupSucess.png";
+import signupFailed from "../images/signupFailed.png";
 
 function App() {
   const [cards, setCards] = useState([]);
-  /*   const [token, setToken] = useState(""); */
+
   const [currentUser, setCurrentUser] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [popup, setPopup] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.getInitialCards().then((apiCards) => setCards(apiCards));
-  }, []);
-
-  useEffect(() => {
-    api.getUserInfo().then((apiUser) => setCurrentUser(apiUser));
-  }, []);
-
-  /*   useEffect(() => {
     const jwt = getToken();
 
     if (!jwt) {
       return;
     }
-    api.getUserAuth(jwt).then((response) => {
+    auth.getUserAuth(jwt).then((response) => {
       const email = { email: response.data.email };
       setCurrentUser((prevData) => ({ ...prevData, ...email }));
       setIsLoggedIn(true);
       navigate("/");
     });
-  }, [navigate]); */
+  }, [navigate]);
 
   useEffect(() => {
-    const jwt = getToken();
-    if (!jwt || jwt === "") {
-      return;
-    }
-    api
-      .getUserInfo(jwt)
-      .then((response) => {
-        const email = { email: response.email };
+    api.getInitialCards().then((apiCards) => setCards(apiCards));
+  }, []);
 
+  useEffect(() => {
+    api
+      .getUserInfo()
+      .then((response) => {
         setCurrentUser((prevData) => ({ ...prevData, ...response }));
-        setIsLoggedIn(true);
-        navigate("/");
       })
       .catch((error) => {
         console.error("Erro ao obter informações do usuário:", error);
       });
-  }, [navigate]);
+  }, []);
 
   async function handleCardDelete(card) {
     api.deleteCard(card._id).then(() => {
@@ -119,22 +109,32 @@ function App() {
     auth
       .register({ email, password })
       .then(() => {
-        console.log("Cchegouuuuuuu01", email);
         const infoTooltip = {
-          Children: (
+          children: (
             <InfoTooltip
-              ico={signupSucess}
+              icon={signupSucess}
               message="Você registrou e agora precisa fazer login!"
             />
           ),
         };
-        console.log("Cchegou02");
+
         handleOpenPopup(infoTooltip);
         navigate("/signin");
         /*        const redirectPath = location.state?.from?.pathname || "/signin";
         navigate(redirectPath); // Mande o usuário para /main */
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        const infoTooltip = {
+          children: (
+            <InfoTooltip
+              icon={signupFailed}
+              message="Ops, algo saiu deu errado! Por favor, tente novamente."
+            />
+          ),
+        };
+
+        handleOpenPopup(infoTooltip);
+      });
   };
 
   const handleLogin = ({ email, password }) => {
@@ -150,7 +150,6 @@ function App() {
       .authorize({ email, password })
       .then((data) => {
         if (data.token) {
-          console.log("teste", email);
           setToken(data.token);
           setCurrentUser((prevData) => ({ ...prevData, email }));
           setIsLoggedIn(true); // Permita o login do usuário
@@ -173,7 +172,7 @@ function App() {
       }}
     >
       <div className="page">
-        <Header setIsLoggedIn={setIsLoggedIn} />
+        <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
         <Routes>
           <Route
             path="/signin"
@@ -219,6 +218,11 @@ function App() {
             }
           />
         </Routes>
+        {popup && (
+          <Popup onClose={handleClosePopup} title={popup.title}>
+            {popup.children}
+          </Popup>
+        )}
       </div>
     </CurrentUserContext.Provider>
   );
