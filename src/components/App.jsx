@@ -157,7 +157,22 @@ function App() {
           navigate(redirectPath); // Mande o usuário para /main
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        let message = "Ops, algo saiu deu errado! Por favor, tente novamente.";
+        if (err === "Error: 400") {
+          message = "Um ou mais campos não foram fornecidos";
+        }
+
+        if (err === "Error: 401") {
+          message = "Usuário com o e-mail especificado não encontrado";
+        }
+
+        const infoTooltip = {
+          children: <InfoTooltip icon={signupFailed} message={message} />,
+        };
+
+        handleOpenPopup(infoTooltip);
+      });
   };
 
   return (

@@ -399,4 +399,25 @@
   .popup__view-image {
     margin: 0 auto;
   }
+
+  .popup__form-infoTooltip-register {
+    width: 280px;
+  }
+
+  /*--------------- inicio popup infoTooltip ---------------------*/
+
+  .popup__image-infoTooltip-sucess {
+    width: 120px;
+    height: 120px;
+    margin: 50px auto 32px;
+  }
+
+  .popup__message-infoTooltip-p1 {
+    width: 244px;
+    margin: 0 auto 20px;
+  }
+  .popup__message-infoTooltip-p2 {
+    width: 244px;
+    margin: 0 auto 60px;
+  }
 }

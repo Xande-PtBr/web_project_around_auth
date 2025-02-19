@@ -23,9 +23,9 @@ function Login({ handleLogin }) {
 
   /* return <div>Signin</div>; */
   return (
-    <div className="Login">
+    <div className="login">
       <form className="login__form" onSubmit={handleSubmit}>
-        <h1>Entrar</h1>
+        <h1 className="login__title-enter">Entrar</h1>
         <input
           className="login__input-email"
           id="email"
@@ -45,12 +45,9 @@ function Login({ handleLogin }) {
           onChange={handleChange}
           placeholder="Senha"
         />
-        <div className="login__button-container">
-          <button type="submit" className="login__button-link">
-            Entrar
-          </button>
-        </div>
-        <div className="login__link-register">
+        <button className="login__button-link">Entrar</button>
+
+        <div type="submit" className="login__link-register">
           Ainda não é membro?
           <Link to="/signup" className="login__register-link">
             &nbsp;&nbsp;Inscreva-se aqui

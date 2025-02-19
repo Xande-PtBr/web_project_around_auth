@@ -1,16 +1,11 @@
-h1 {
+.register__title-enter {
   font-family: Inter;
   font-weight: 900;
   font-size: 24px;
   line-height: 29.05px;
-  letter-spacing: 0%;
   text-align: center;
   color: #fff;
-  margin: 0 0 50px;
-}
-
-.register {
-  width: 358;
+  margin: 0 auto 50px;
 }
 
 .register__form {
@@ -37,13 +32,9 @@ h1 {
   text-decoration: none;
 }
 
-.register__login-link {
+.register__register-link {
   text-decoration: none;
   color: #fff;
-}
-
-.register__button-container {
-  width: 358px;
 }
 
 .register__input-email {
@@ -71,6 +62,7 @@ h1 {
 .register__button-link {
   width: 358px;
   height: 50px;
+  margin: 0 auto;
   padding: 0;
   border-radius: 2px;
   border: none;
@@ -78,4 +70,34 @@ h1 {
   color: rgba(0, 0, 0, 1);
   background: rgba(255, 255, 255, 1);
   cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .register__title-enter {
+    width: 260px;
+    margin: 0 auto 40px;
+  }
+
+  .register__form {
+    width: 260px;
+    margin: 40px auto 0;
+  }
+
+  .register__input-email {
+    width: 260px;
+  }
+
+  .register__input-password {
+    width: 260px;
+    margin: 0 auto 173px;
+  }
+
+  .register__button-link {
+    width: 260px;
+    margin: 0 auto;
+  }
+
+  .register__link-login {
+    width: 260px;
+  }
 }

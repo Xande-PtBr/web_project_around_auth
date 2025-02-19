@@ -16,7 +16,7 @@ export const getUserAuth = (token) => {
 
 export const authorize = ({ email, password }) => {
   // Uma solicitação POST é enviada para /auth/local.
-  return fetch(`${BASE_URL}/signin  `, {
+  return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",

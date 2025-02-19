@@ -29,7 +29,7 @@ const signOut = () => {
   );
 } */
 
-function Header({ isLoggedIn }) {
+function Header(/* { isLoggedIn } */) {
   const location = useLocation();
 
   const from = location.state?.from || "/";
@@ -47,24 +47,36 @@ function Header({ isLoggedIn }) {
   const [isMenuOpen, setIsMenuOpen] = useState(window.innerWidth > 720);
   const menuHamburguerClosed = hamburguer;
   const menuHamburguerOpen = closeHamburguer;
-  console.log(isMenuOpen);
+  const isHomePage = currentPage === "/";
 
   return (
     <>
-      <header className="header">
+      <header
+        className={`header ${
+          !isHomePage ? "header__remove-colum-reverse" : ""
+        }`}
+      >
         <div className="header__button-menu">
           <img className="header__logo" src={logo_around} alt="Logo Around" />
-          <img
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="header__button-hamburguer-menu"
-            src={isMenuOpen ? menuHamburguerOpen : menuHamburguerClosed}
-            alt="menu hamburguer"
-          />
+          {currentPage !== "signin" && currentPage !== "signup" && (
+            <img
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="header__button-hamburguer-menu"
+              src={isMenuOpen ? menuHamburguerOpen : menuHamburguerClosed}
+              alt="menu hamburguer"
+            />
+          )}
         </div>
 
+        {currentPage === "signin" && (
+          <Link className="header__button-subscribe" to="/signup">
+            Inscrever-se
+          </Link>
+        )}
+
         {currentPage === "signup" && (
-          <Link className="header__button-exit" to="/signin">
-            <div className="header__button-login">Entrar</div>
+          <Link className="header__button-enter" to="/signin">
+            Entrar
           </Link>
         )}
 

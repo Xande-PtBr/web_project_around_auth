@@ -4,10 +4,8 @@ import PropTypes from "prop-types";
 
 const Register = ({ handleRegistration }) => {
   const [data, setData] = useState({
-    /*  username: "", */
     email: "",
     password: "",
-    /*   confirmPassword: "", */
   });
 
   const handleChange = (e) => {
@@ -21,13 +19,12 @@ const Register = ({ handleRegistration }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRegistration(data);
-    console.log(data);
   };
 
   return (
     <div className="register">
       <form className="register__form" onSubmit={handleSubmit}>
-        <h1>Inscrever-se</h1>
+        <h1 className="register__title-enter">Inscrever-se</h1>
         <input
           className="register__input-email"
           id="email"
@@ -47,14 +44,11 @@ const Register = ({ handleRegistration }) => {
           onChange={handleChange}
           placeholder="Senha"
         />
-        <div className="register__button-container">
-          <button type="submit" className="login__button-link">
-            Inscrever-se
-          </button>
-        </div>
-        <div className="register__link-login">
+        <button className="register__button-link">Inscrever-se</button>
+
+        <div type="submit" className="register__link-login">
           Já é um membro?
-          <Link to="/login" className="register__login-link">
+          <Link to="/signin" className="register__register-link">
             &nbsp;&nbsp;Faça o login aqui!
           </Link>
         </div>
