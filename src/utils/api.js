@@ -181,4 +181,12 @@ const api = new Api({
   },
 });
 
+/* const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/web-ptbr-cohort-14",
+  headers: {
+    authorization: "e255bcaf-9aa3-4e45-a23a-da684d7fa67f",
+    "Content-Type": "application/json",
+  },
+}); */
+
 export default api;
